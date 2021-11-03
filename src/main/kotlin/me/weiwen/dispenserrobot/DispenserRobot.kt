@@ -7,6 +7,7 @@ import me.weiwen.dispenserrobot.extensions.isTool
 import me.weiwen.dispenserrobot.extensions.playSoundAt
 import org.bukkit.Bukkit
 import org.bukkit.SoundCategory
+import org.bukkit.Tag
 import org.bukkit.block.Dispenser
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -46,7 +47,7 @@ class DispenserRobot : JavaPlugin(), Listener {
         val blockInFront = block.blockInFront ?: return
 
         if (config.canPlaceBlocks) {
-            if (item.type.isBlock) {
+            if (item.type.isBlock && item.type !in Tag.SHULKER_BOXES.values) {
                 event.isCancelled = true
                 if (!blockInFront.type.isAir) {
                     event.isCancelled = !config.shouldDropBlocks
