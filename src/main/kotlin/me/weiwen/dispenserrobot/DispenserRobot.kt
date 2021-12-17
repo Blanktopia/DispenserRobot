@@ -51,9 +51,8 @@ class DispenserRobot : JavaPlugin(), Listener {
 
         if (config.canBreakBlocks) {
             if (item.type.isTool) {
-                event.isCancelled = true
                 if (blockInFront.type.isAir) {
-                    event.isCancelled = !config.shouldDropTools
+                    event.isCancelled = !config.shouldDropTools && item.type != Material.SHEARS
                     return
                 }
 
