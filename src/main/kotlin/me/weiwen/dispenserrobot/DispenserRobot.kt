@@ -1,17 +1,13 @@
 package me.weiwen.dispenserrobot
 
-import me.weiwen.dispenserrobot.block.BlockBreak
-import me.weiwen.dispenserrobot.block.BlockStrip
+import me.weiwen.dispenserrobot.block.*
 import me.weiwen.dispenserrobot.extensions.blockInFront
 import me.weiwen.dispenserrobot.extensions.isTool
-import me.weiwen.dispenserrobot.extensions.playSoundAt
-import org.bukkit.Bukkit
-import org.bukkit.SoundCategory
-import org.bukkit.Tag
-import org.bukkit.block.Dispenser
+import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockDispenseEvent
+import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.java.JavaPlugin
 
 class DispenserRobot : JavaPlugin(), Listener {
@@ -22,6 +18,7 @@ class DispenserRobot : JavaPlugin(), Listener {
 
     private val blockStrip: BlockStrip by lazy { BlockStrip(this) }
     private val blockBreak: BlockBreak by lazy { BlockBreak(this, blockStrip) }
+    private val blockPlace: BlockPlace by lazy { BlockPlace(this) }
 
     var config: Config = parseConfig(this)
 
@@ -41,31 +38,14 @@ class DispenserRobot : JavaPlugin(), Listener {
     @EventHandler(ignoreCancelled = true)
     fun onBlockDispense(event: BlockDispenseEvent) {
         val block = event.block
-        val dispenser = block.state as? Dispenser ?: return
         val item = event.item
 
         val blockInFront = block.blockInFront ?: return
 
         if (config.canPlaceBlocks) {
-            if (item.type.isBlock && item.type !in Tag.SHULKER_BOXES.values) {
+            if (blockPlace.placeBlock(item, block, blockInFront)) {
                 event.isCancelled = true
-                if (!blockInFront.type.isAir) {
-                    event.isCancelled = !config.shouldDropBlocks
-                    return
-                }
-
-                blockInFront.type = item.type
-                Bukkit.getScheduler().scheduleSyncDelayedTask(this, {
-                    dispenser.inventory.removeItem(item)
-                }, 1L)
-
-                val soundGroup = blockInFront.blockData.soundGroup
-                blockInFront.playSoundAt(
-                    soundGroup.placeSound,
-                    SoundCategory.BLOCKS,
-                    soundGroup.volume,
-                    soundGroup.pitch * 0.8f
-                )
+                return
             }
         }
 
