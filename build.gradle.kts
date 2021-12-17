@@ -4,14 +4,14 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.5.31"
-    kotlin("plugin.serialization") version "1.5.31"
+    kotlin("jvm") version "1.6.0"
+    kotlin("plugin.serialization") version "1.6.0"
     id("net.minecrell.plugin-yml.bukkit")
     id("com.github.johnrengelman.shadow")
 }
 
 group = "me.weiwen.dispenserrobot"
-version = "1.0.1"
+version = "1.1.0"
 
 repositories {
     jcenter()
@@ -31,17 +31,17 @@ repositories {
 }
 
 dependencies {
-    implementation(kotlin("stdlib-jdk8", "1.5.0"))
+    implementation(kotlin("stdlib", "1.6.0"))
 
     // Deserialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.1")
     implementation("com.charleskorn.kaml:kaml:0.33.0")
 
     // Paper
-    compileOnly("io.papermc.paper", "paper-api", "1.17.1-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper", "paper-api", "1.18.1-R0.1-SNAPSHOT")
 
     // Spigot
-    compileOnly("org.spigotmc", "spigot", "1.17.1-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc", "spigot", "1.18.1-R0.1-SNAPSHOT")
 
     // bStats
     implementation("org.bstats", "bstats-bukkit", "1.8")
@@ -56,7 +56,7 @@ dependencies {
 bukkit {
     main = "me.weiwen.dispenserrobot.DispenserRobot"
     name = "DispenserRobot"
-    version = "1.0.0"
+    version = "1.1.0"
     description = "Add more capabilities to dispenser"
     apiVersion = "1.16"
     author = "Goh Wei Wen <goweiwen@gmail.com>"
@@ -67,7 +67,7 @@ bukkit {
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "11"
-    kotlinOptions.languageVersion = "1.5"
+    kotlinOptions.languageVersion = "1.6"
     kotlinOptions.freeCompilerArgs = listOf(
         "-Xopt-in=kotlin.RequiresOptIn",
         "-Xuse-experimental=org.jetbrains.kotlinx.serialization.ExperimentalSerializationApi"
@@ -78,6 +78,4 @@ tasks.withType<ShadowJar> {
     classifier = null
 
     relocate("org.bstats", "me.weiwen.dispenserrobot.bstats")
-    relocate("org.jetbrains.kotlinx", "me.weiwen.dispenserrobot.kotlinx")
-    relocate("com.charleskorn.kaml", "me.weiwen.dispenserrobot.kaml")
 }
