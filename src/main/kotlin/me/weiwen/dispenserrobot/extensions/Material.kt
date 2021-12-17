@@ -235,3 +235,39 @@ val Material.scraped: Material?
         else -> null
     }
 
+val breedItems: Set<Material> =
+    setOf(
+        Material.WHEAT,
+        Material.CARROT,
+        Material.GOLDEN_APPLE,
+        Material.ENCHANTED_GOLDEN_APPLE,
+        Material.GOLDEN_CARROT,
+        Material.POTATO,
+        Material.BEETROOT,
+        Material.WHEAT_SEEDS,
+        Material.PUMPKIN_SEEDS,
+        Material.MELON_SEEDS,
+        Material.BEETROOT_SEEDS,
+        Material.BEEF,
+        Material.CHICKEN,
+        Material.PORKCHOP,
+        Material.COOKED_BEEF,
+        Material.COOKED_CHICKEN,
+        Material.COOKED_PORKCHOP,
+        Material.MUTTON,
+        Material.COOKED_MUTTON,
+        Material.RABBIT,
+        Material.COOKED_RABBIT,
+        Material.ROTTEN_FLESH,
+        Material.COD,
+        Material.SALMON,
+        Material.TROPICAL_FISH_BUCKET,
+        Material.HAY_BLOCK,
+        Material.SEAGRASS,
+        Material.BAMBOO,
+        Material.SWEET_BERRIES,
+        Material.GLOW_BERRIES,
+    )
+
+val Material.isBreedItem: Boolean
+    get() = breedItems.contains(this)

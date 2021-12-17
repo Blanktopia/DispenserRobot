@@ -19,6 +19,7 @@ class DispenserRobot : JavaPlugin(), Listener {
     private val blockStrip: BlockStrip by lazy { BlockStrip(this) }
     private val blockBreak: BlockBreak by lazy { BlockBreak(this, blockStrip) }
     private val blockPlace: BlockPlace by lazy { BlockPlace(this) }
+    private val breed: Breed by lazy { Breed(this) }
 
     var config: Config = parseConfig(this)
 
@@ -41,6 +42,10 @@ class DispenserRobot : JavaPlugin(), Listener {
         val item = event.item
 
         val blockInFront = block.blockInFront ?: return
+
+        if (config.canBreed && breed.breed(event, item, block)) {
+            return
+        }
 
         if (config.canPlaceBlocks) {
             if (blockPlace.placeBlock(item, block, blockInFront)) {

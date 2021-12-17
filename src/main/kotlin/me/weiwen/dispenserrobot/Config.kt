@@ -43,6 +43,13 @@ data class Config(
     @SerialName("can-path-dirt")
     val canPathDirt: Boolean = true,
 
+    @SerialName("can-breed")
+    val canBreed: Boolean = true,
+    @SerialName("breed-range")
+    val breedRange: Double = 1.0,
+    @SerialName("should-drop-breed-items")
+    val shouldDropBreedItems: Boolean = false,
+
     @SerialName("render-distance")
     val renderDistance: Double = 32.0,
 
