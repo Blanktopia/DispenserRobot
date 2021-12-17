@@ -3,6 +3,7 @@ package me.weiwen.dispenserrobot
 import me.weiwen.dispenserrobot.block.*
 import me.weiwen.dispenserrobot.extensions.blockInFront
 import me.weiwen.dispenserrobot.extensions.isTool
+import org.bstats.bukkit.Metrics
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -29,6 +30,9 @@ class DispenserRobot : JavaPlugin(), Listener {
 
     override fun onEnable() {
         plugin.server.pluginManager.registerEvents(this, this)
+
+        Metrics(this, 13621);
+
         logger.info("DispenserRobot is enabled")
     }
 
