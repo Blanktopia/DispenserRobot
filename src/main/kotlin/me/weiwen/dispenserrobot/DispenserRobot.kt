@@ -57,11 +57,8 @@ class DispenserRobot : JavaPlugin(), Listener {
                     return
                 }
 
-                blockBreak.startBreaking(
-                    item,
-                    block,
-                    blockInFront,
-                )
+                event.isCancelled = true
+                blockBreak.startBreaking(item, block, blockInFront)
             }
         }
     }

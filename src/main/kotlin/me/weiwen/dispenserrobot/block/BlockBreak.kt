@@ -3,8 +3,12 @@ package me.weiwen.dispenserrobot.block
 import me.weiwen.dispenserrobot.DispenserRobot
 import me.weiwen.dispenserrobot.IS_SERVER_PAPER
 import me.weiwen.dispenserrobot.extensions.*
-import me.weiwen.moromoro.managers.CustomBlock
-import org.bukkit.*
+import me.weiwen.moromoro.blocks.CustomBlock
+import me.weiwen.moromoro.managers.item
+import org.bukkit.Material
+import org.bukkit.Particle
+import org.bukkit.SoundCategory
+import org.bukkit.Tag
 import org.bukkit.block.Block
 import org.bukkit.block.Container
 import org.bukkit.enchantments.Enchantment
@@ -12,10 +16,16 @@ import org.bukkit.inventory.ItemStack
 import kotlin.math.ceil
 import kotlin.random.Random
 
-class BlockBreak(private val plugin: DispenserRobot, val blockStrip: BlockStrip) {
+class BlockBreak(private val plugin: DispenserRobot, private val blockStrip: BlockStrip) {
 
     fun startBreaking(tool: ItemStack, dispenser: Block, block: Block) {
-        val ticks = breakDuration(tool, block)
+        val customBlock = if (plugin.config.hookMoromoro && plugin.server.pluginManager.isPluginEnabled("Moromoro")) {
+            CustomBlock.fromBlock(block)
+        } else {
+            null
+        }
+
+        val ticks = customBlock?.breakDuration(tool) ?: breakDuration(tool, block)
 
         if (ticks == 0L) {
             plugin.server.scheduler.scheduleSyncDelayedTask(plugin, {
@@ -33,7 +43,7 @@ class BlockBreak(private val plugin: DispenserRobot, val blockStrip: BlockStrip)
         material: Material,
         progress: Long,
         ticks: Long,
-        entityId: Int
+        entityId: Int,
     ) {
         if (block.type != material) {
             block.sendBlockDamage(0f, entityId)
@@ -56,17 +66,40 @@ class BlockBreak(private val plugin: DispenserRobot, val blockStrip: BlockStrip)
 
         block.sendBlockDamage((progress.toFloat() / ticks).coerceAtMost(1f), entityId)
 
-        block.world.spawnParticle(
-            Particle.BLOCK_CRACK,
-            block.x + 0.5,
-            block.y + 0.5,
-            block.z + 0.6,
-            10,
-            0.1,
-            0.1,
-            0.1,
-            block.blockData
-        )
+        val customBlock = if (plugin.config.hookMoromoro && plugin.server.pluginManager.isPluginEnabled("Moromoro")) {
+            CustomBlock.fromBlock(block)
+        } else {
+            null
+        }
+        if (customBlock != null) {
+            val template = customBlock.template
+            if (template != null) {
+                block.world.spawnParticle(
+                    Particle.ITEM_CRACK,
+                    block.x + 0.5,
+                    block.y + 0.5,
+                    block.z + 0.5,
+                    10,
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.05,
+                    template.item("")
+                )
+            }
+        } else {
+            block.world.spawnParticle(
+                Particle.BLOCK_CRACK,
+                block.x + 0.5,
+                block.y + 0.5,
+                block.z + 0.6,
+                10,
+                0.1,
+                0.1,
+                0.1,
+                block.blockData
+            )
+        }
 
         if (progress.mod(4) == 0) {
             val soundGroup = block.blockData.soundGroup
@@ -87,7 +120,7 @@ class BlockBreak(private val plugin: DispenserRobot, val blockStrip: BlockStrip)
                     material,
                     progress + 1,
                     ticks,
-                    entityId
+                    entityId,
                 )
             }, 1L)
         } else {
