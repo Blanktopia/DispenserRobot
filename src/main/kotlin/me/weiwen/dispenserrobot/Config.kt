@@ -9,6 +9,8 @@ import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 import java.util.logging.Level
 
+const val CONFIG_VERSION = "1.1.0"
+
 val IS_SERVER_PAPER: Boolean by lazy {
     try {
         Class.forName("com.destroystokyo.paper.Title")
@@ -20,6 +22,9 @@ val IS_SERVER_PAPER: Boolean by lazy {
 
 @Serializable
 data class Config(
+    @SerialName("config-version")
+    var configVersion: String = "1.0.0",
+
     @SerialName("can-place-blocks")
     val canPlaceBlocks: Boolean = true,
     @SerialName("should-drop-blocks")
@@ -67,10 +72,18 @@ fun parseConfig(plugin: JavaPlugin): Config {
         file.writeText(Yaml().encodeToString(Config()))
     }
 
-    return try {
+    val config = try {
         Yaml().decodeFromString(file.readText())
     } catch (e: Exception) {
         plugin.logger.log(Level.SEVERE, e.message)
         Config()
     }
+
+    if (config.configVersion != CONFIG_VERSION) {
+        config.configVersion = CONFIG_VERSION
+        plugin.logger.log(Level.INFO, "Updating config")
+        file.writeText(Yaml().encodeToString(config))
+    }
+
+    return config
 }
