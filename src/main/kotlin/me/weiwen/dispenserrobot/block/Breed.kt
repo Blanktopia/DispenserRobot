@@ -32,7 +32,7 @@ class Breed(private val plugin: DispenserRobot) {
             val entity = result?.hitEntity as? Animals
             if (entity == null) {
                 if (!plugin.config.shouldDropBreedItems) {
-                    event.isCancelled = item.type.isBreedItem
+                    event.isCancelled = event.isCancelled || item.type.isBreedItem
                 }
                 return false
             } else if (breed(item, entity)) {

@@ -9,7 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 import java.util.logging.Level
 
-const val CONFIG_VERSION = "1.1.0"
+const val CONFIG_VERSION = "1.2.0"
 
 val IS_SERVER_PAPER: Boolean by lazy {
     try {
@@ -23,7 +23,7 @@ val IS_SERVER_PAPER: Boolean by lazy {
 @Serializable
 data class Config(
     @SerialName("config-version")
-    var configVersion: String = "1.0.0",
+    var configVersion: String = "1.2.0",
 
     @SerialName("can-place-blocks")
     val canPlaceBlocks: Boolean = true,
@@ -54,6 +54,21 @@ data class Config(
     val breedRange: Double = 1.0,
     @SerialName("should-drop-breed-items")
     val shouldDropBreedItems: Boolean = false,
+
+    @SerialName("can-collect-water-from-cauldron")
+    val canCollectWaterFromCauldron: Boolean = true,
+    @SerialName("can-place-water-into-cauldron")
+    val canPlaceWaterIntoCauldron: Boolean = true,
+    @SerialName("can-collect-lava-from-cauldron")
+    val canCollectLavaFromCauldron: Boolean = true,
+    @SerialName("can-place-lava-into-cauldron")
+    val canPlaceLavaIntoCauldron: Boolean = true,
+    @SerialName("can-collect-powder-snow-from-cauldron")
+    val canCollectPowderSnowFromCauldron: Boolean = true,
+    @SerialName("can-place-powder-snow-into-cauldron")
+    val canPlacePowderSnowIntoCauldron: Boolean = true,
+    @SerialName("should-drop-buckets")
+    val shouldDropBuckets: Boolean = false,
 
     @SerialName("render-distance")
     val renderDistance: Double = 32.0,

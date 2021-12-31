@@ -14,7 +14,7 @@ import org.bukkit.block.data.type.Slab
 import org.bukkit.block.data.type.Stairs
 import org.bukkit.inventory.ItemStack
 
-class BlockStrip(val plugin: DispenserRobot) {
+class BlockStrip(private val plugin: DispenserRobot) {
     private fun stripLog(block: Block): Boolean {
         val stripped = block.type.stripped ?: return false
         val data = block.blockData
