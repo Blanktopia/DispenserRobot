@@ -63,7 +63,8 @@ class Cauldron(private val plugin: DispenserRobot) {
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, {
             state.inventory.removeItem(item)
-            state.inventory.addItem(ItemStack(bucketMaterial))
+            val items = state.inventory.addItem(ItemStack(bucketMaterial))
+            items.forEach { (_, itemStack) -> block.world.dropItemNaturally(block.location, itemStack) }
         }, 1L)
 
         return true
