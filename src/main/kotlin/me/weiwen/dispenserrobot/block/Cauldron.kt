@@ -95,7 +95,7 @@ class Cauldron(private val plugin: DispenserRobot) {
         block.playSoundAt(placeSound, SoundCategory.BLOCKS, 1.0f, 1.0f)
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, {
-            state.inventory.remove(item)
+            state.inventory.removeItem(item)
             state.inventory.addItem(ItemStack(Material.BUCKET))
         }, 1L)
 

@@ -30,7 +30,7 @@ class BlockPlace(private val plugin: DispenserRobot) {
             return false
         }
 
-        if (block.type.isAir || (IS_SERVER_PAPER && !block.isReplaceable)) {
+        if ((!IS_SERVER_PAPER && !block.type.isAir) || (IS_SERVER_PAPER && !block.type.isAir && !block.isReplaceable)) {
             return !plugin.config.shouldDropBlocks
         }
 
