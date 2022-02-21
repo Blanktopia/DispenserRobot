@@ -13,6 +13,7 @@ import org.bukkit.block.Block
 import org.bukkit.block.Container
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
+import org.spigotmc.SpigotConfig.config
 import kotlin.math.ceil
 import kotlin.random.Random
 
@@ -58,7 +59,7 @@ class BlockBreak(private val plugin: DispenserRobot, private val blockStrip: Blo
         if (!dispenser.isBlockPowered && !dispenser.isBlockIndirectlyPowered) {
             block.sendBlockDamage(0f, entityId)
 
-            if (progress < 2) {
+            if (progress <= plugin.config.redstonePulseTicks) {
                 blockStrip.strip(block, tool, dispenser)
             }
             return

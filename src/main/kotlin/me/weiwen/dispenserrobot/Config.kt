@@ -35,6 +35,8 @@ data class Config(
     @SerialName("should-drop-tools")
     val shouldDropTools: Boolean = false,
 
+    @SerialName("redstone-pulse-ticks")
+    val redstonePulseTicks: Int = 20,
     @SerialName("can-strip-logs")
     val canStripLogs: Boolean = true,
     @SerialName("can-unstrip-logs")
