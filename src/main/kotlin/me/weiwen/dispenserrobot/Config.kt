@@ -10,7 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 import java.util.logging.Level
 
-const val CONFIG_VERSION = "1.2.0"
+const val CONFIG_VERSION = "1.3.0"
 
 val IS_SERVER_PAPER: Boolean by lazy {
     try {
@@ -24,7 +24,7 @@ val IS_SERVER_PAPER: Boolean by lazy {
 @Serializable
 data class Config(
     @SerialName("config-version")
-    var configVersion: String = "1.2.0",
+    var configVersion: String = "1.3.0",
 
     @SerialName("can-place-blocks")
     val canPlaceBlocks: Boolean = true,
