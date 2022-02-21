@@ -5,6 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
+import org.bukkit.Material
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 import java.util.logging.Level
@@ -29,11 +30,15 @@ data class Config(
     val canPlaceBlocks: Boolean = true,
     @SerialName("should-drop-blocks")
     val shouldDropBlocks: Boolean = false,
+    @SerialName("place-blocks-blacklist")
+    val placeBlocksBlacklist: Set<Material> = setOf(Material.WHEAT),
 
     @SerialName("can-break-blocks")
     val canBreakBlocks: Boolean = true,
     @SerialName("should-drop-tools")
     val shouldDropTools: Boolean = false,
+    @SerialName("break-blocks-blacklist")
+    val breakBlocksBlacklist: Set<Material> = setOf(),
 
     @SerialName("redstone-pulse-ticks")
     val redstonePulseTicks: Int = 20,
