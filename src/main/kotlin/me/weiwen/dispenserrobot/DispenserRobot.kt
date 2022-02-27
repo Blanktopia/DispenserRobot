@@ -69,14 +69,14 @@ class DispenserRobot : JavaPlugin(), Listener {
             }
         }
 
-        if (config.canBreakBlocks && block.type !in config.breakBlocksBlacklist) {
+        if (config.canBreakBlocks) {
             if (item.type.isTool) {
                 if (item.type == Material.SHEARS && blockInFront.type == Material.BEEHIVE || blockInFront.type == Material.BEE_NEST) {
                     event.isCancelled = false
                     return
                 }
 
-                if (blockInFront.type.isAir) {
+                if (blockInFront.type.isAir || blockInFront.type in config.breakBlocksBlacklist) {
                     event.isCancelled = !config.shouldDropTools && item.type != Material.SHEARS
                     return
                 }
