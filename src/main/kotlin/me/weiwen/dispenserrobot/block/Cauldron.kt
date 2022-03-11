@@ -19,6 +19,10 @@ class Cauldron(private val plugin: DispenserRobot) {
         val block = dispenser.blockInFront ?: return false
         val levelled = block.blockData as? Levelled
 
+        if (block.isLiquid && levelled?.level == 0) {
+            return false
+        }
+
         if (levelled != null && levelled.level != levelled.maximumLevel) {
             event.isCancelled = !plugin.config.shouldDropBuckets
             return false
@@ -81,7 +85,9 @@ class Cauldron(private val plugin: DispenserRobot) {
         val block = dispenser.blockInFront
 
         if (block == null || block.type != Material.CAULDRON) {
-            event.isCancelled = !plugin.config.shouldDropBuckets
+            if (block != null && !block.type.isAir && !block.isReplaceable) {
+                event.isCancelled = !plugin.config.shouldDropBuckets
+            }
             return false
         }
 
