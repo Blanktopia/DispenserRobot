@@ -24,7 +24,7 @@ val IS_SERVER_PAPER: Boolean by lazy {
 @Serializable
 data class Config(
     @SerialName("config-version")
-    var configVersion: String = "1.3.0",
+    var configVersion: String = "1.3.2",
 
     @SerialName("can-place-blocks")
     val canPlaceBlocks: Boolean = true,
@@ -38,7 +38,7 @@ data class Config(
     @SerialName("should-drop-tools")
     val shouldDropTools: Boolean = false,
     @SerialName("break-blocks-blacklist")
-    val breakBlocksBlacklist: Set<Material> = setOf(),
+    val breakBlocksBlacklist: Set<Material> = setOf(Material.BEDROCK, Material.BARRIER),
 
     @SerialName("redstone-pulse-ticks")
     val redstonePulseTicks: Int = 20,

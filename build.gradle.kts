@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "me.weiwen.dispenserrobot"
-version = "1.3.1"
+version = "1.3.2"
 
 repositories {
     jcenter()
@@ -56,7 +56,7 @@ dependencies {
 bukkit {
     main = "me.weiwen.dispenserrobot.DispenserRobot"
     name = "DispenserRobot"
-    version = "1.3.1"
+    version = "1.3.2"
     description = "Add more capabilities to dispenser"
     apiVersion = "1.16"
     author = "Goh Wei Wen <goweiwen@gmail.com>"
