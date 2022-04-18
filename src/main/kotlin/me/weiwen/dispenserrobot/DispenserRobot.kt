@@ -46,6 +46,8 @@ class DispenserRobot : JavaPlugin(), Listener {
         val block = event.block
         val item = event.item
 
+        if (block.type != Material.DISPENSER) return
+
         val blockInFront = block.blockInFront ?: return
 
         if (when (item.type) {
