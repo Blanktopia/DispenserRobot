@@ -43,6 +43,9 @@ dependencies {
     // Spigot
     compileOnly("org.spigotmc", "spigot", "1.18.1-R0.1-SNAPSHOT")
 
+    // Vault
+    compileOnly("com.github.MilkBowl", "VaultAPI", "1.7")
+
     // bStats
     implementation("org.bstats", "bstats-bukkit", "1.8")
 
