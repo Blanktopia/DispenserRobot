@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "me.weiwen.dispenserrobot"
-version = "1.3.3"
+version = "1.3.4"
 
 repositories {
     jcenter()
@@ -43,6 +43,9 @@ dependencies {
     // Spigot
     compileOnly("org.spigotmc", "spigot", "1.18.1-R0.1-SNAPSHOT")
 
+    // Vault
+    compileOnly("com.github.MilkBowl", "VaultAPI", "1.7")
+
     // bStats
     implementation("org.bstats", "bstats-bukkit", "1.8")
 
@@ -56,7 +59,7 @@ dependencies {
 bukkit {
     main = "me.weiwen.dispenserrobot.DispenserRobot"
     name = "DispenserRobot"
-    version = "1.3.3"
+    version = "1.3.4"
     description = "Add more capabilities to dispenser"
     apiVersion = "1.16"
     author = "Goh Wei Wen <goweiwen@gmail.com>"
