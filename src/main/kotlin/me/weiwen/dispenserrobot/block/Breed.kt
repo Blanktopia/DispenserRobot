@@ -2,9 +2,8 @@ package me.weiwen.dispenserrobot.block
 
 import me.weiwen.dispenserrobot.DispenserRobot
 import me.weiwen.dispenserrobot.extensions.isBreedItem
-import me.weiwen.moromoro.extensions.spawnParticle
+import me.weiwen.dispenserrobot.extensions.spawnParticle
 import org.bukkit.Bukkit
-import org.bukkit.Material
 import org.bukkit.Particle
 import org.bukkit.block.Block
 import org.bukkit.block.Dispenser
