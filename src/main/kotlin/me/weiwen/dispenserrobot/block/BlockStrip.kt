@@ -156,34 +156,26 @@ class BlockStrip(private val plugin: DispenserRobot) {
     }
 
     fun strip(block: Block, tool: ItemStack, dispenser: Block) {
+        var shouldDamage = false
+
         if (plugin.config.canStripLogs && tool.type in axes && stripLog(block)) {
-            (dispenser.state as? Container)?.let { tool.damage(1, it) }
-            return
+            shouldDamage = true
+        } else if (plugin.config.canUnstripLogs && tool.type in axes && unstripLog(block)) {
+            shouldDamage = true
+        } else if (plugin.config.canUnwaxCopper && tool.type in axes && unwaxCopper(block)) {
+            shouldDamage = true
+        } else if (plugin.config.canScrapeCopper && tool.type in axes && scrapeCopper(block)) {
+            shouldDamage = true
+        } else if (plugin.config.canTillDirt && tool.type in hoes && tillDirt(block)) {
+            shouldDamage = true
+        } else if (plugin.config.canPathDirt && tool.type in shovels && pathDirt(block)) {
+            shouldDamage = true
         }
 
-        if (plugin.config.canUnstripLogs && tool.type in axes && unstripLog(block)) {
-            (dispenser.state as? Container)?.let { tool.damage(1, it) }
-            return
-        }
-
-        if (plugin.config.canUnwaxCopper && tool.type in axes && unwaxCopper(block)) {
-            (dispenser.state as? Container)?.let { tool.damage(1, it) }
-            return
-        }
-
-        if (plugin.config.canScrapeCopper && tool.type in axes && scrapeCopper(block)) {
-            (dispenser.state as? Container)?.let { tool.damage(1, it) }
-            return
-        }
-
-        if (plugin.config.canTillDirt && tool.type in hoes && tillDirt(block)) {
-            (dispenser.state as? Container)?.let { tool.damage(1, it) }
-            return
-        }
-
-        if (plugin.config.canPathDirt && tool.type in shovels && pathDirt(block)) {
-            (dispenser.state as? Container)?.let { tool.damage(1, it) }
-            return
+        if (shouldDamage) {
+            plugin.server.scheduler.runTaskLater(plugin, { ->
+                (dispenser.state as? Container)?.let { tool.applyDamage(1, it) }
+            }, 1)
         }
     }
 }
