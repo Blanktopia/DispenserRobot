@@ -25,10 +25,21 @@ val shearMaterials: Set<Material> by lazy {
     ).plus(
         listOf(
             Material.COBWEB,
+            Material.TALL_GRASS,
+            Material.SHORT_GRASS,
             Material.CAVE_VINES,
             Material.TWISTING_VINES,
             Material.WEEPING_VINES,
+            Material.VINE,
+            Material.HANGING_ROOTS,
             Material.GLOW_LICHEN,
+            Material.TALL_SEAGRASS,
+            Material.SEAGRASS,
+            Material.NETHER_SPROUTS,
+            Material.DEAD_BUSH,
+            Material.BUSH,
+            Material.TALL_DRY_GRASS,
+            Material.SHORT_DRY_GRASS,
         )
     )
 }
@@ -75,41 +86,21 @@ val woodenTools: Set<Material> = setOf(
     Material.WOODEN_HOE,
 )
 
-val pickaxes: Set<Material> = setOf(
-    Material.DIAMOND_PICKAXE,
-    Material.GOLDEN_PICKAXE,
-    Material.IRON_PICKAXE,
-    Material.STONE_PICKAXE,
-    Material.WOODEN_PICKAXE,
-    Material.NETHERITE_PICKAXE
-)
+val pickaxes: Set<Material> by lazy {
+    Tag.ITEMS_PICKAXES.values
+}
 
-val axes: Set<Material> = setOf(
-    Material.DIAMOND_AXE,
-    Material.GOLDEN_AXE,
-    Material.IRON_AXE,
-    Material.STONE_AXE,
-    Material.WOODEN_AXE,
-    Material.NETHERITE_AXE
-)
+val axes: Set<Material> by lazy {
+    Tag.ITEMS_AXES.values
+}
 
-val shovels: Set<Material> = setOf(
-    Material.DIAMOND_SHOVEL,
-    Material.GOLDEN_SHOVEL,
-    Material.IRON_SHOVEL,
-    Material.STONE_SHOVEL,
-    Material.WOODEN_SHOVEL,
-    Material.NETHERITE_SHOVEL
-)
+val shovels: Set<Material> by lazy {
+    Tag.ITEMS_SHOVELS.values
+}
 
-val hoes: Set<Material> = setOf(
-    Material.DIAMOND_HOE,
-    Material.GOLDEN_HOE,
-    Material.IRON_HOE,
-    Material.STONE_HOE,
-    Material.WOODEN_HOE,
-    Material.NETHERITE_HOE
-)
+val hoes: Set<Material> by lazy {
+    Tag.ITEMS_HOES.values
+}
 
 val stoneToolMaterials: Set<Material> by lazy {
     Tag.NEEDS_STONE_TOOL.values
@@ -173,6 +164,11 @@ val Material.stripped: Material?
         Material.CRIMSON_HYPHAE -> Material.STRIPPED_CRIMSON_HYPHAE
         Material.WARPED_STEM -> Material.STRIPPED_WARPED_STEM
         Material.WARPED_HYPHAE -> Material.STRIPPED_WARPED_HYPHAE
+        Material.BAMBOO_BLOCK -> Material.STRIPPED_BAMBOO_BLOCK
+        Material.CHERRY_LOG -> Material.STRIPPED_CHERRY_LOG
+        Material.CHERRY_WOOD -> Material.STRIPPED_CHERRY_WOOD
+        Material.PALE_OAK_LOG -> Material.STRIPPED_PALE_OAK_LOG
+        Material.PALE_OAK_WOOD -> Material.STRIPPED_PALE_OAK_WOOD
         else -> null
     }
 
@@ -194,6 +190,11 @@ val Material.unstripped: Material?
         Material.STRIPPED_CRIMSON_HYPHAE -> Material.CRIMSON_HYPHAE
         Material.STRIPPED_WARPED_STEM -> Material.WARPED_STEM
         Material.STRIPPED_WARPED_HYPHAE -> Material.WARPED_HYPHAE
+        Material.STRIPPED_BAMBOO_BLOCK -> Material.BAMBOO_BLOCK
+        Material.STRIPPED_CHERRY_LOG -> Material.CHERRY_LOG
+        Material.STRIPPED_CHERRY_WOOD -> Material.CHERRY_WOOD
+        Material.STRIPPED_PALE_OAK_LOG -> Material.PALE_OAK_LOG
+        Material.STRIPPED_PALE_OAK_WOOD -> Material.PALE_OAK_WOOD
         else -> null
     }
 
@@ -203,18 +204,42 @@ val Material.unwaxed: Material?
         Material.WAXED_CUT_COPPER -> Material.CUT_COPPER
         Material.WAXED_CUT_COPPER_SLAB -> Material.CUT_COPPER_SLAB
         Material.WAXED_CUT_COPPER_STAIRS -> Material.CUT_COPPER_STAIRS
+        Material.WAXED_COPPER_BULB -> Material.COPPER_BULB
+        Material.WAXED_COPPER_DOOR -> Material.COPPER_DOOR
+        Material.WAXED_COPPER_GRATE -> Material.COPPER_GRATE
+        Material.WAXED_COPPER_TRAPDOOR -> Material.COPPER_TRAPDOOR
+        Material.WAXED_CHISELED_COPPER -> Material.CHISELED_COPPER
+
         Material.WAXED_EXPOSED_COPPER -> Material.EXPOSED_COPPER
         Material.WAXED_EXPOSED_CUT_COPPER -> Material.EXPOSED_CUT_COPPER
         Material.WAXED_EXPOSED_CUT_COPPER_SLAB -> Material.EXPOSED_CUT_COPPER_SLAB
         Material.WAXED_EXPOSED_CUT_COPPER_STAIRS -> Material.EXPOSED_CUT_COPPER_STAIRS
+        Material.WAXED_EXPOSED_COPPER_BULB -> Material.EXPOSED_COPPER_BULB
+        Material.WAXED_EXPOSED_COPPER_DOOR -> Material.EXPOSED_COPPER_DOOR
+        Material.WAXED_EXPOSED_COPPER_GRATE -> Material.EXPOSED_COPPER_GRATE
+        Material.WAXED_EXPOSED_COPPER_TRAPDOOR -> Material.EXPOSED_COPPER_TRAPDOOR
+        Material.WAXED_EXPOSED_CHISELED_COPPER -> Material.EXPOSED_CHISELED_COPPER
+
         Material.WAXED_WEATHERED_COPPER -> Material.WEATHERED_COPPER
         Material.WAXED_WEATHERED_CUT_COPPER -> Material.WEATHERED_CUT_COPPER
         Material.WAXED_WEATHERED_CUT_COPPER_SLAB -> Material.WEATHERED_CUT_COPPER_SLAB
         Material.WAXED_WEATHERED_CUT_COPPER_STAIRS -> Material.WEATHERED_CUT_COPPER_STAIRS
+        Material.WAXED_WEATHERED_COPPER_BULB -> Material.WEATHERED_COPPER_BULB
+        Material.WAXED_WEATHERED_COPPER_DOOR -> Material.WEATHERED_COPPER_DOOR
+        Material.WAXED_WEATHERED_COPPER_GRATE -> Material.WEATHERED_COPPER_GRATE
+        Material.WAXED_WEATHERED_COPPER_TRAPDOOR -> Material.WEATHERED_COPPER_TRAPDOOR
+        Material.WAXED_WEATHERED_CHISELED_COPPER -> Material.WEATHERED_CHISELED_COPPER
+
         Material.WAXED_OXIDIZED_COPPER -> Material.OXIDIZED_COPPER
         Material.WAXED_OXIDIZED_CUT_COPPER -> Material.OXIDIZED_CUT_COPPER
         Material.WAXED_OXIDIZED_CUT_COPPER_SLAB -> Material.OXIDIZED_CUT_COPPER_SLAB
         Material.WAXED_OXIDIZED_CUT_COPPER_STAIRS -> Material.OXIDIZED_CUT_COPPER_STAIRS
+        Material.WAXED_OXIDIZED_COPPER_BULB -> Material.OXIDIZED_COPPER_BULB
+        Material.WAXED_OXIDIZED_COPPER_DOOR -> Material.OXIDIZED_COPPER_DOOR
+        Material.WAXED_OXIDIZED_COPPER_GRATE -> Material.OXIDIZED_COPPER_GRATE
+        Material.WAXED_OXIDIZED_COPPER_TRAPDOOR -> Material.OXIDIZED_COPPER_TRAPDOOR
+        Material.WAXED_OXIDIZED_CHISELED_COPPER -> Material.OXIDIZED_CHISELED_COPPER
+
         else -> null
     }
 
@@ -224,14 +249,31 @@ val Material.scraped: Material?
         Material.OXIDIZED_CUT_COPPER -> Material.WEATHERED_CUT_COPPER
         Material.OXIDIZED_CUT_COPPER_SLAB -> Material.WEATHERED_CUT_COPPER_SLAB
         Material.OXIDIZED_CUT_COPPER_STAIRS -> Material.WEATHERED_CUT_COPPER_STAIRS
+        Material.OXIDIZED_COPPER_BULB -> Material.WEATHERED_COPPER_BULB
+        Material.OXIDIZED_COPPER_DOOR -> Material.WEATHERED_COPPER_DOOR
+        Material.OXIDIZED_COPPER_GRATE -> Material.WEATHERED_COPPER_GRATE
+        Material.OXIDIZED_COPPER_TRAPDOOR -> Material.WEATHERED_COPPER_TRAPDOOR
+        Material.OXIDIZED_CHISELED_COPPER -> Material.WEATHERED_CHISELED_COPPER
+
         Material.WEATHERED_COPPER -> Material.EXPOSED_COPPER
         Material.WEATHERED_CUT_COPPER -> Material.EXPOSED_CUT_COPPER
         Material.WEATHERED_CUT_COPPER_SLAB -> Material.EXPOSED_CUT_COPPER_SLAB
         Material.WEATHERED_CUT_COPPER_STAIRS -> Material.EXPOSED_CUT_COPPER_STAIRS
+        Material.WEATHERED_COPPER_BULB -> Material.EXPOSED_COPPER_BULB
+        Material.WEATHERED_COPPER_DOOR -> Material.EXPOSED_COPPER_DOOR
+        Material.WEATHERED_COPPER_GRATE -> Material.EXPOSED_COPPER_GRATE
+        Material.WEATHERED_COPPER_TRAPDOOR -> Material.EXPOSED_COPPER_TRAPDOOR
+        Material.WEATHERED_CHISELED_COPPER -> Material.EXPOSED_CHISELED_COPPER
+
         Material.EXPOSED_COPPER -> Material.COPPER_BLOCK
         Material.EXPOSED_CUT_COPPER -> Material.CUT_COPPER
         Material.EXPOSED_CUT_COPPER_SLAB -> Material.CUT_COPPER_SLAB
         Material.EXPOSED_CUT_COPPER_STAIRS -> Material.CUT_COPPER_STAIRS
+        Material.EXPOSED_COPPER_BULB -> Material.COPPER_BULB
+        Material.EXPOSED_COPPER_DOOR -> Material.COPPER_DOOR
+        Material.EXPOSED_COPPER_GRATE -> Material.COPPER_GRATE
+        Material.EXPOSED_COPPER_TRAPDOOR -> Material.COPPER_TRAPDOOR
+        Material.EXPOSED_CHISELED_COPPER -> Material.CHISELED_COPPER
         else -> null
     }
 

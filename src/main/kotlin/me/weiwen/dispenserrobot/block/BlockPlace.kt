@@ -6,6 +6,7 @@ import me.weiwen.dispenserrobot.extensions.playSoundAt
 import me.weiwen.moromoro.Moromoro
 import me.weiwen.moromoro.actions.Context
 import me.weiwen.moromoro.extensions.customItemKey
+import me.weiwen.moromoro.items.ItemManager
 import org.bukkit.Bukkit
 import org.bukkit.SoundCategory
 import org.bukkit.Tag
@@ -21,7 +22,7 @@ class BlockPlace(private val plugin: DispenserRobot) {
 
         val moromoroBlock =
             if (plugin.config.hookMoromoro && DispenserRobot.plugin.server.pluginManager.isPluginEnabled("Moromoro")) {
-                Moromoro.plugin.itemManager.templates[item.customItemKey]?.block
+                ItemManager.templates[item.customItemKey]?.block
             } else {
                 null
             }

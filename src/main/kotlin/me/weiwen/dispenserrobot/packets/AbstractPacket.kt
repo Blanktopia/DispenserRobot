@@ -72,7 +72,7 @@ abstract class AbstractPacket protected constructor(handle: PacketContainer?, ty
     )
     fun recievePacket(sender: Player?) {
         try {
-            ProtocolLibrary.getProtocolManager().recieveClientPacket(
+            ProtocolLibrary.getProtocolManager().receiveClientPacket(
                 sender,
                 handle
             )
@@ -89,7 +89,7 @@ abstract class AbstractPacket protected constructor(handle: PacketContainer?, ty
      */
     fun receivePacket(sender: Player?) {
         try {
-            ProtocolLibrary.getProtocolManager().recieveClientPacket(
+            ProtocolLibrary.getProtocolManager().receiveClientPacket(
                 sender,
                 handle
             )

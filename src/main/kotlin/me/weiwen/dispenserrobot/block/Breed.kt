@@ -60,7 +60,7 @@ class Breed(private val plugin: DispenserRobot) {
         }
 
         entity.loveModeTicks = 600
-        entity.spawnParticle(Particle.VILLAGER_HAPPY, 10, 0.0)
+        entity.spawnParticle(Particle.HEART, 10, 0.0)
 
         return true
     }

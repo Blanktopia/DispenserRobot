@@ -4,7 +4,7 @@ import me.weiwen.dispenserrobot.DispenserRobot
 import me.weiwen.dispenserrobot.IS_SERVER_PAPER
 import me.weiwen.dispenserrobot.extensions.*
 import me.weiwen.moromoro.blocks.CustomBlock
-import me.weiwen.moromoro.managers.item
+import me.weiwen.moromoro.items.item
 import org.bukkit.Material
 import org.bukkit.Particle
 import org.bukkit.SoundCategory
@@ -13,7 +13,6 @@ import org.bukkit.block.Block
 import org.bukkit.block.Container
 import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
-import org.spigotmc.SpigotConfig.config
 import kotlin.math.ceil
 import kotlin.random.Random
 
@@ -76,7 +75,7 @@ class BlockBreak(private val plugin: DispenserRobot, private val blockStrip: Blo
             val template = customBlock.template
             if (template != null) {
                 block.world.spawnParticle(
-                    Particle.ITEM_CRACK,
+                    Particle.ITEM,
                     block.x + 0.5,
                     block.y + 0.5,
                     block.z + 0.5,
@@ -85,12 +84,12 @@ class BlockBreak(private val plugin: DispenserRobot, private val blockStrip: Blo
                     0.1,
                     0.1,
                     0.05,
-                    template.item("")
+                    template.item(customBlock.key, 1)
                 )
             }
         } else {
             block.world.spawnParticle(
-                Particle.BLOCK_CRACK,
+                Particle.BLOCK,
                 block.x + 0.5,
                 block.y + 0.5,
                 block.z + 0.6,
@@ -133,7 +132,7 @@ class BlockBreak(private val plugin: DispenserRobot, private val blockStrip: Blo
         entityId?.let { block.sendBlockDamage(0f, it) }
 
         (dispenser.state as? Container)?.let {
-            tool.damage(
+            tool.applyDamage(
                 if (tool.type.isBestTool(block.type)) {
                     1
                 } else {
@@ -178,7 +177,7 @@ class BlockBreak(private val plugin: DispenserRobot, private val blockStrip: Blo
             else -> 1.0
         }
 
-        val efficiency = when (val level = tool.getEnchantmentLevel(Enchantment.DIG_SPEED)) {
+        val efficiency = when (val level = tool.getEnchantmentLevel(Enchantment.EFFICIENCY)) {
             0 -> 0
             else -> level * level + 1
         }
