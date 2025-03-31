@@ -9,9 +9,15 @@ import org.bukkit.SoundCategory
 import org.bukkit.block.Block
 import org.bukkit.block.BlockFace
 import org.bukkit.block.Container
+import org.bukkit.block.data.Bisected
+import org.bukkit.block.data.Directional
+import org.bukkit.block.data.Openable
 import org.bukkit.block.data.Orientable
+import org.bukkit.block.data.Waterlogged
+import org.bukkit.block.data.type.Door
 import org.bukkit.block.data.type.Slab
 import org.bukkit.block.data.type.Stairs
+import org.bukkit.block.data.type.TrapDoor
 import org.bukkit.inventory.ItemStack
 
 class BlockStrip(private val plugin: DispenserRobot) {
@@ -54,6 +60,26 @@ class BlockStrip(private val plugin: DispenserRobot) {
             newData.shape = data.shape
             block.blockData = newData
         }
+        if (data is Waterlogged && newData is Waterlogged) {
+            newData.isWaterlogged = data.isWaterlogged
+            block.blockData = newData
+        }
+        if (data is Bisected && newData is Bisected) {
+            newData.half = data.half
+            block.blockData = newData
+        }
+        if (data is Directional && newData is Directional) {
+            newData.facing = data.facing
+            block.blockData = newData
+        }
+        if (data is Openable && newData is Openable) {
+            newData.isOpen = data.isOpen
+            block.blockData = newData
+        }
+        if (data is Door && newData is Door) {
+            newData.hinge = data.hinge
+            block.blockData = newData
+        }
         block.playSoundAt(Sound.ITEM_AXE_WAX_OFF, SoundCategory.BLOCKS, 1.0f, 1.0f)
         block.spawnParticle(Particle.WAX_OFF, 10, 0.0)
         return true
@@ -70,6 +96,26 @@ class BlockStrip(private val plugin: DispenserRobot) {
         }
         if (data is Stairs && newData is Stairs) {
             newData.shape = data.shape
+            block.blockData = newData
+        }
+        if (data is Waterlogged && newData is Waterlogged) {
+            newData.isWaterlogged = data.isWaterlogged
+            block.blockData = newData
+        }
+        if (data is Bisected && newData is Bisected) {
+            newData.half = data.half
+            block.blockData = newData
+        }
+        if (data is Directional && newData is Directional) {
+            newData.facing = data.facing
+            block.blockData = newData
+        }
+        if (data is Openable && newData is Openable) {
+            newData.isOpen = data.isOpen
+            block.blockData = newData
+        }
+        if (data is Door && newData is Door) {
+            newData.hinge = data.hinge
             block.blockData = newData
         }
         block.playSoundAt(Sound.ITEM_AXE_SCRAPE, SoundCategory.BLOCKS, 1.0f, 1.0f)
