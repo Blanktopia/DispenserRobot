@@ -38,7 +38,7 @@ dependencies {
     implementation("com.charleskorn.kaml:kaml:0.104.0")
 
     // Purpur
-    compileOnly("org.purpurmc.purpur", "purpur-api", "1.21.5-R0.1-SNAPSHOT")
+    compileOnly("org.purpurmc.purpur", "purpur-api", "26.3.build.2654-stable")
 
     // Vault
     compileOnly("com.github.MilkBowl", "VaultAPI", "1.7.1")
@@ -58,7 +58,7 @@ bukkit {
     name = "DispenserRobot"
     version = "1.4.0"
     description = "Add more capabilities to dispenser"
-    apiVersion = "1.16"
+    apiVersion = "26.3"
     author = "Goh Wei Wen <goweiwen@gmail.com>"
     website = "weiwen.me"
 
