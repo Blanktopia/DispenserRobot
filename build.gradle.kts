@@ -24,8 +24,8 @@ repositories {
     // bStats
     maven { url = uri("https://repo.codemc.org/repository/maven-public") }
 
-    // ProtocolLib
-    maven { url = uri("https://repo.dmulloy2.net/repository/public/") }
+    // packetevents
+    maven { url = uri("https://repo.codemc.io/repository/maven-releases/") }
 
     mavenLocal()
 }
@@ -46,8 +46,8 @@ dependencies {
     // bStats
     implementation("org.bstats", "bstats-bukkit", "1.8")
 
-    // ProtocolLib
-    compileOnly("com.comphenix.protocol", "ProtocolLib", "5.1.0")
+    // packetevents
+    compileOnly("com.github.retrooper", "packetevents-spigot", "2.14.0")
 
     // Moromoro
     compileOnly("me.weiwen.moromoro", "Moromoro", "1.2.0-SNAPSHOT")
@@ -62,7 +62,7 @@ bukkit {
     author = "Goh Wei Wen <goweiwen@gmail.com>"
     website = "weiwen.me"
 
-    softDepend = listOf("ProtocolLib", "Moromoro")
+    softDepend = listOf("packetevents", "Moromoro")
 }
 
 tasks.withType<KotlinCompile> {
