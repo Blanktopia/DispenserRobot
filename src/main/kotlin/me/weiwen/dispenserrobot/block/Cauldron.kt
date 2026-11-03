@@ -10,6 +10,7 @@ import org.bukkit.SoundCategory
 import org.bukkit.block.Block
 import org.bukkit.block.Dispenser
 import org.bukkit.block.data.Levelled
+import org.bukkit.block.data.Waterlogged
 import org.bukkit.event.block.BlockDispenseEvent
 import org.bukkit.inventory.ItemStack
 
@@ -57,7 +58,7 @@ class Cauldron(private val plugin: DispenserRobot) {
                 }
             }
             else -> {
-                event.isCancelled = !plugin.config.shouldDropBuckets
+                event.isCancelled = !plugin.config.shouldDropBuckets && block.blockData !is Waterlogged
                 return false
             }
         }
@@ -85,7 +86,8 @@ class Cauldron(private val plugin: DispenserRobot) {
         val block = dispenser.blockInFront
 
         if (block == null || block.type != Material.CAULDRON) {
-            if (block != null && !block.type.isAir && !block.isReplaceable) {
+            val canWaterlog = cauldron == Material.WATER_CAULDRON && block?.blockData is Waterlogged
+            if (block != null && !block.type.isAir && !block.isReplaceable && !canWaterlog) {
                 event.isCancelled = !plugin.config.shouldDropBuckets
             }
             return false
