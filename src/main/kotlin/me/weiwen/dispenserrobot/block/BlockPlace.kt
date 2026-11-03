@@ -36,37 +36,27 @@ class BlockPlace(private val plugin: DispenserRobot) {
         }
 
         if (moromoroBlock != null) {
-            if (moromoroBlock.place(
-                    Context(
-                        null,
-                        null,
-                        item,
-                        null,
-                        dispenser,
-                        facing
-                    )
-                )
-            ) {
-                Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, {
-                    state.inventory.removeItem(item)
-                }, 1L)
-                return true
-            } else {
-                return !plugin.config.shouldDropBlocks
-            }
+            Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, {
+                if (state.inventory.removeItem(item).isNotEmpty()) return@scheduleSyncDelayedTask
+                if (!moromoroBlock.place(Context(null, null, item, null, dispenser, facing))) {
+                    state.inventory.addItem(item)
+                }
+            }, 1L)
+            return true
         }
 
-        block.type = item.type
-        val soundGroup = block.blockData.soundGroup
-        block.playSoundAt(
-            soundGroup.placeSound,
-            SoundCategory.BLOCKS,
-            soundGroup.volume,
-            soundGroup.pitch * 0.8f
-        )
+        val data = block.blockData
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, {
-            state.inventory.removeItem(item)
+            if (block.blockData != data || state.inventory.removeItem(item).isNotEmpty()) return@scheduleSyncDelayedTask
+            block.type = item.type
+            val soundGroup = block.blockData.soundGroup
+            block.playSoundAt(
+                soundGroup.placeSound,
+                SoundCategory.BLOCKS,
+                soundGroup.volume,
+                soundGroup.pitch * 0.8f
+            )
         }, 1L)
 
         return true

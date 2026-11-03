@@ -64,10 +64,11 @@ class Cauldron(private val plugin: DispenserRobot) {
         }
 
         event.isCancelled = true
-        block.type = Material.CAULDRON
+        val data = block.blockData
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, {
-            state.inventory.removeItem(item)
+            if (block.blockData != data || state.inventory.removeItem(item).isNotEmpty()) return@scheduleSyncDelayedTask
+            block.type = Material.CAULDRON
             val items = state.inventory.addItem(ItemStack(bucketMaterial))
             items.forEach { (_, itemStack) -> block.world.dropItemNaturally(block.location, itemStack) }
         }, 1L)
@@ -94,17 +95,19 @@ class Cauldron(private val plugin: DispenserRobot) {
         }
 
         event.isCancelled = true
-        block.type = cauldron
-        block.blockData = block.blockData.apply {
-            if (this is Levelled) {
-                level = maximumLevel
-            }
-        }
-
-        block.playSoundAt(placeSound, SoundCategory.BLOCKS, 1.0f, 1.0f)
+        val data = block.blockData
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, {
-            state.inventory.removeItem(item)
+            if (block.blockData != data || state.inventory.removeItem(item).isNotEmpty()) return@scheduleSyncDelayedTask
+            block.type = cauldron
+            block.blockData = block.blockData.apply {
+                if (this is Levelled) {
+                    level = maximumLevel
+                }
+            }
+
+            block.playSoundAt(placeSound, SoundCategory.BLOCKS, 1.0f, 1.0f)
+
             state.inventory.addItem(ItemStack(Material.BUCKET))
         }, 1L)
 

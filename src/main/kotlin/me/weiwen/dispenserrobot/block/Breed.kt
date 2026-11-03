@@ -34,9 +34,11 @@ class Breed(private val plugin: DispenserRobot) {
                     event.isCancelled = event.isCancelled || item.type.isBreedItem
                 }
                 return false
-            } else if (breed(item, entity)) {
+            } else if (canBreed(item, entity)) {
                 Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, {
-                    state.inventory.removeItem(item)
+                    if (!canBreed(item, entity) || state.inventory.removeItem(item).isNotEmpty()) return@scheduleSyncDelayedTask
+                    entity.loveModeTicks = 600
+                    entity.spawnParticle(Particle.HEART, 10, 0.0)
                 }, 1L)
                 event.isCancelled = true
                 return true
@@ -46,7 +48,7 @@ class Breed(private val plugin: DispenserRobot) {
 
     }
 
-    private fun breed(item: ItemStack, entity: Animals): Boolean {
+    private fun canBreed(item: ItemStack, entity: Animals): Boolean {
         if (!entity.canBreed()) {
             return false
         }
@@ -55,13 +57,6 @@ class Breed(private val plugin: DispenserRobot) {
             return false
         }
 
-        if (!entity.isBreedItem(item)) {
-            return false
-        }
-
-        entity.loveModeTicks = 600
-        entity.spawnParticle(Particle.HEART, 10, 0.0)
-
-        return true
+        return entity.isBreedItem(item)
     }
 }
