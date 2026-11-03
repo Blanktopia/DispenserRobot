@@ -25,7 +25,7 @@ class BlockBreak(private val plugin: DispenserRobot, private val blockStrip: Blo
             null
         }
 
-        val ticks = customBlock?.breakDuration(tool) ?: breakDuration(tool, block)
+        val ticks = if (plugin.config.instantBreakBlocks) 0L else customBlock?.breakDuration(tool) ?: breakDuration(tool, block)
 
         if (ticks == 0L) {
             plugin.server.scheduler.scheduleSyncDelayedTask(plugin, {

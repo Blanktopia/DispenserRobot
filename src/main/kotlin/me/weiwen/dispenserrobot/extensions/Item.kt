@@ -1,5 +1,6 @@
 package me.weiwen.dispenserrobot.extensions
 
+import me.weiwen.dispenserrobot.DispenserRobot
 import org.bukkit.Material
 import org.bukkit.block.Container
 import org.bukkit.enchantments.Enchantment
@@ -29,6 +30,10 @@ fun ItemStack.applyDamage(damage: Int): Boolean {
 }
 
 fun ItemStack.applyDamage(damage: Int, container: Container): Boolean {
+    if (!DispenserRobot.plugin.config.useToolDurability) {
+        return true
+    }
+
     val slot = container.inventory.first(this)
     if (slot == -1) {
         return false

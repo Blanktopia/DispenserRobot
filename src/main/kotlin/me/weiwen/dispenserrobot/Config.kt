@@ -10,7 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 import java.util.logging.Level
 
-const val CONFIG_VERSION = "1.3.0"
+const val CONFIG_VERSION = "1.4.0"
 
 val IS_SERVER_PAPER: Boolean by lazy {
     try {
@@ -39,6 +39,10 @@ data class Config(
     val shouldDropTools: Boolean = false,
     @SerialName("break-blocks-blacklist")
     val breakBlocksBlacklist: Set<Material> = setOf(Material.BEDROCK, Material.BARRIER),
+    @SerialName("instant-break-blocks")
+    val instantBreakBlocks: Boolean = false,
+    @SerialName("use-tool-durability")
+    val useToolDurability: Boolean = true,
 
     @SerialName("redstone-pulse-ticks")
     val redstonePulseTicks: Int = 20,
